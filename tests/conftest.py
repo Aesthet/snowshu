@@ -175,7 +175,7 @@ def stub_graph_set() -> tuple:
 
 def sanitize_docker_environment():
     client=docker.from_env()
-    def try_or_pass(statement,kwargs=dict()):
+    def try_or_pass(statement,kwargs={}):
         try:
             statement(**kwargs)
         except:

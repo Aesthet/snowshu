@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, List, Union
+from typing import Any, List, Union, Tuple
 
 import networkx as nx
 from tabulate import tabulate
@@ -29,8 +29,8 @@ class ReportRow:
                 )
 
 
-def graph_to_result_list(graphs: nx.Graph) -> list:
-    report = list()
+def graph_to_result_list(graphs: Tuple[nx.Graph]) -> list:
+    report = []
     for graph in graphs:
         try:
             for relation in graph.nodes:
@@ -65,11 +65,11 @@ def graph_to_result_list(graphs: nx.Graph) -> list:
     return report
 
 
-def printable_result(report: List[ReportRow], analyze: str) -> str:
+def printable_result(report: List[ReportRow], analyze: bool) -> str:
     colors = dict(reset="\033[0m",
                   red="\033[0;31m",
                   green="\033[0;32m")
-    printable = list()
+    printable = []
     for row in report:
         formatter = 'green' if row.percent_is_acceptable else 'red'
         row.percent_to_target = f"{colors[formatter]}{row.percent_to_target} %{colors['reset']}"

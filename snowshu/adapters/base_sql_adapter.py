@@ -129,7 +129,7 @@ class BaseSQLAdapter:
             raise KeyError(
                 'base_sql_adapter unable to build connection string; required param `dialect` to infer.')
         if not overrides:
-            overrides = dict()
+            overrides = {}
 
         self._credentials.urlencode()
         conn_string, used_credentials = self._build_conn_string_partial(
@@ -223,7 +223,8 @@ class BaseSQLAdapter:
             schema_objs = [
                 BaseSQLAdapter._DatabaseObject(
                     schema, 
-                    Relation(db_rel.database, self._correct_case(schema), "", None, None)) for schema in schemas]
+                    Relation(db_rel.database, self._correct_case(schema), "", None, None))
+                for schema in schemas]
             filtered_schemas += [
                 d for d in schema_objs if at_least_one_full_pattern_match(d.full_relation, schema_filters)]
 

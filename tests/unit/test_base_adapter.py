@@ -19,8 +19,8 @@ class StubbedAdapter(BaseSQLAdapter):
 
     REQUIRED_CREDENTIALS = (USER, PASSWORD, HOST)
     ALLOWED_CREDENTIALS = (ACCOUNT, SCHEMA)
-    DATA_TYPE_MAPPINGS = dict()
-    MATERIALIZATION_MAPPINGS = dict()
+    DATA_TYPE_MAPPINGS = {}
+    MATERIALIZATION_MAPPINGS = {}
 
 
 def test_sets_credentials():

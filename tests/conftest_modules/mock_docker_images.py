@@ -19,7 +19,7 @@ class MockImageFactory:
                  source_adapter:str='snowflake',
                  target_adapter:str='postgres')->MockImage:
 
-        labels=dict()
+        labels={}
         if is_snowshu:
             name='snowshu_replica_'+name
             labels=dict(snowshu_replica='true',source_adapter=source_adapter,target_adapter=target_adapter)

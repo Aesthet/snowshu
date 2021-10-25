@@ -32,7 +32,7 @@ class PostgresAdapter(BaseTargetAdapter):
     def __init__(self, replica_metadata: dict, **kwargs):
         super().__init__(replica_metadata)
 
-        self.extensions = kwargs.get("pg_extensions", list())
+        self.extensions = kwargs.get("pg_extensions", [])
         self.x00_replacement = kwargs.get("pg_0x00_replacement", "")
 
         self.DOCKER_START_COMMAND = f'postgres -p {self._credentials.port}' # noqa pylint: disable=invalid-name
@@ -107,14 +107,14 @@ class PostgresAdapter(BaseTargetAdapter):
         return relation
 
     @staticmethod
-    def image_finalize_bash_commands() -> List[str]:
-        commands = list()
-        commands.append(f'mkdir /{DOCKER_REMOUNT_DIRECTORY}')
-        commands.append(f'cp -a /var/lib/postgresql/data/* /{DOCKER_REMOUNT_DIRECTORY}')
+    def image_finalize_bash_commands(*args) -> List[str]:
+        commands = [f'mkdir /{DOCKER_REMOUNT_DIRECTORY}',
+                    f'cp -a /var/lib/postgresql/data/* /{DOCKER_REMOUNT_DIRECTORY}',
+                    ]
         return commands
 
     def image_initialize_bash_commands(self) -> List[str]:
-        commands = list()
+        commands = []
         # install extra postgres extension packages here
         commands.append(f'apt-get update && apt-get install -y {" ".join(self.PRELOADED_PACKAGES)}')
         return commands

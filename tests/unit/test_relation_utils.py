@@ -79,4 +79,4 @@ def test_lookup_relations():
     assert not relation.lookup_relations(pattern2, [test_relation, test_relation2]) == [
         test_relation, test_relation2]
     assert relation.lookup_single_relation(
-        pattern3, [test_relation, test_relation2]) == None
+        pattern3, [test_relation, test_relation2]) is None

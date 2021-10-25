@@ -7,7 +7,7 @@ from setuptools import find_packages, setup
 VERSION='0.0.3'
 PYTHON_REQUIRES='3.7'
 
-packagedata=dict()
+packagedata={}
 
 packagedata['include_package_data']=True
 packagedata['name']="snowshu"
@@ -18,7 +18,7 @@ packagedata['url']='https://snowshu.readthedocs.io/en/master/index.html'
 packagedata['description']="Sample image management for data transform TDD."
 packagedata['classifiers']=["Development Status :: 4 - Beta", "License :: OSI Approved :: Apache Software License", "Operating System :: OS Independent"]
 packagedata['python_requires']=f'>={PYTHON_REQUIRES}'
-packagedata['install_requires']=list()
+packagedata['install_requires']=[]
 packagedata['packages']=find_packages(exclude=['tests',])
 packagedata['entry_points']=dict(console_scripts=['snowshu= snowshu.core.main:cli'])
 

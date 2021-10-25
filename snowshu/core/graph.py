@@ -120,7 +120,7 @@ class SnowShuGraph:
 
             # processing for non-unsampled relations
             # create a list of the relationship remote patterns and attributes
-            relationship_dicts = list()
+            relationship_dicts = []
             for relationship_type in ('bidirectional', 'directional',):
                 relationship_dicts += [
                     dict(

@@ -4,7 +4,7 @@ import shutil
 import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
-from typing import List
+from typing import List, Tuple
 
 import networkx as nx
 
@@ -35,7 +35,7 @@ class GraphSetRunner:
         self.barf = None
 
     def execute_graph_set(self,     # noqa pylint: disable=too-many-arguments
-                          graph_set: List[nx.Graph],
+                          graph_set: Tuple[nx.Graph],
                           source_adapter: BaseSourceAdapter,
                           target_adapter: BaseTargetAdapter,
                           threads: int,

@@ -1,6 +1,6 @@
 import time
 from pathlib import Path
-from typing import TextIO, Union
+from typing import TextIO, Union, Optional
 
 from snowshu.core.configuration_parser import (Configuration,
                                                ConfigurationParser)
@@ -16,9 +16,9 @@ logger = Logger().logger
 class ReplicaFactory:
 
     def __init__(self):
-        self._credentials = dict()
-        self.config: Configuration = None
-        self.run_analyze: bool = None
+        self._credentials = {}
+        self.config: Optional[Configuration] = None
+        self.run_analyze: Optional[bool] = None
 
     def create(self,
                name: Union[str, None],
@@ -32,7 +32,7 @@ class ReplicaFactory:
 
     def _execute(self,
                  barf: bool = False,
-                 name: Union[str, None] = None) -> None:
+                 name: Union[str, None] = None) -> Optional[str]:
         graph = SnowShuGraph()
         if name is not None:
             self.config.name = name
@@ -81,3 +81,10 @@ class ReplicaFactory:
         start_timer = time.time()
         self.config = ConfigurationParser().from_file_or_path(config)
         logger.info('Configuration loaded in %s.', duration(start_timer))
+
+
+if __name__ == "__main__":
+    replica_file = "/Users/taras/repos/snowshu/replica.yml"
+    replica = ReplicaFactory()
+    replica.load_config(replica_file)
+    # click.echo(replica.create(name, barf))

@@ -54,7 +54,7 @@ class SnowShuDocker:
             labels: dict = None,
             protocol: str = "tcp") -> docker.models.containers.Container:
         if not labels:
-            labels = dict()
+            labels = {}
         name = name if name else self.replica_image_name_to_common_name(image)
         logger.info(f'Finding base image {image}...')
         try:

@@ -38,9 +38,9 @@ class RuntimeSourceCompiler:
             query = source_adapter.unsampled_statement(relation)
         else:
             do_not_sample = False
-            predicates = list()
-            unions = list()
-            polymorphic_predicates = list()
+            predicates = []
+            unions = []
+            polymorphic_predicates = []
             for child in dag.successors(relation):
                 # parallel edges aren't currently supported
                 edge = dag.edges[relation, child]

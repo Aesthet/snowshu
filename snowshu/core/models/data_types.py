@@ -25,7 +25,7 @@ class DataType:
         return self.name
 
 
-# TODO:break these out into meaninful data types
+# TODO:break these out into meaningful data types
 quoted_types = (
     ("CHAR", types.CHAR(length=1,),),
     ("DATE", types.DATE(),),

@@ -76,7 +76,7 @@ def setup_db_structure(all_data_files, engine):
     LOGGER.info("Creating new DB objects if not present.")
     dbs = set()
     schemas = set()
-    tables = dict()
+    tables = {}
 
     for data_file in all_data_files:
         table_name = data_file.split('/')[-1].replace('.csv', '').upper()

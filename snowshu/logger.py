@@ -2,7 +2,7 @@ import logging
 import os
 import time
 from logging.handlers import RotatingFileHandler
-from typing import Optional
+from typing import Optional, Union
 
 from coloredlogs import ColoredFormatter
 
@@ -14,7 +14,7 @@ from snowshu.formats import (LOGGING_CLI_FORMAT, LOGGING_CLI_WARNING_FORMAT,
 logging.getLogger('snowflake.connector').setLevel(logging.WARNING)
 
 
-def duration(start: int) -> str:
+def duration(start: float) -> str:
     dur = round(time.time() - start, 2)
     if dur < 1:
         return "< 1 second"
@@ -48,7 +48,7 @@ class Logger:
         self.logger.addHandler(warning_handler)
         self.logger.addHandler(self.file_handler)
 
-    def set_log_level(self, level: str) -> None:
+    def set_log_level(self, level: Union[int, str]) -> None:
         logging.getLogger().setLevel(level)
         for handler in self.logger.handlers:
             if handler != self.file_handler:
@@ -56,7 +56,7 @@ class Logger:
 
     @staticmethod
     def remove_all_handlers(logger: logging.Logger) -> None:
-        logger.handlers = list()
+        logger.handlers = []
 
     def log_retries(self, retry_state):
         """ Function for passing to tenacity.retry decorator. """

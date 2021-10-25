@@ -267,10 +267,10 @@ class ConfigurationParser:
                 override_dict
             )
 
-        relationships = specified_pattern.get('relationships', dict())
-        directional = relationships.get('directional', list())
-        bidirectional = relationships.get('bidirectional', list())
-        polymorphic = relationships.get('polymorphic', list())
+        relationships = specified_pattern.get('relationships', {})
+        directional = relationships.get('directional', [])
+        bidirectional = relationships.get('bidirectional', [])
+        polymorphic = relationships.get('polymorphic', [])
         return SpecifiedMatchPattern.Relationships(
             [build_relationship(rel) for rel in bidirectional],
             [build_relationship(rel) for rel in directional],
@@ -280,7 +280,7 @@ class ConfigurationParser:
     def _build_specified_relations(
             self, source_config: dict) -> SpecifiedMatchPattern:
 
-        specified_relations = source_config.get('specified_relations', list())
+        specified_relations = source_config.get('specified_relations', [])
 
         def sampling_or_none(rel):
             if rel.get('sampling'):
@@ -336,7 +336,7 @@ class ConfigurationParser:
         adapter_type = fetch_adapter(full_config['target']['adapter'], 'target')
         adapter_args = full_config['target'].get('adapter_args')
         if not adapter_args:
-            adapter_args = dict()
+            adapter_args = {}
         metadata = {
             attr: full_config[attr] for attr in (
                 'name', 'short_description', 'long_description',)}

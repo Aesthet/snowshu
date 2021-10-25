@@ -36,7 +36,7 @@ class SnowflakeAdapter(BaseSourceAdapter):
 
     name = 'snowflake'
     SUPPORTS_CROSS_DATABASE = True
-    SUPPORTED_FUNCTIONS = set(['ANY_VALUE', 'RLIKE', 'UUID_STRING'])
+    SUPPORTED_FUNCTIONS = {'ANY_VALUE', 'RLIKE', 'UUID_STRING'}
     SUPPORTED_SAMPLE_METHODS = (BernoulliSampleMethod,)
     REQUIRED_CREDENTIALS = (USER, PASSWORD, ACCOUNT, DATABASE,)
     ALLOWED_CREDENTIALS = (SCHEMA, WAREHOUSE, ROLE,)
@@ -286,7 +286,7 @@ LIMIT {max_number_of_outliers})
                       f"@{self.credentials.account}/{self.credentials.database}/"]
         conn_parts.append(
             self.credentials.schema if self.credentials.schema is not None else '')
-        get_args = list()
+        get_args = []
         for arg in ('warehouse', 'role',):
             if self.credentials.__dict__[arg] is not None:
                 get_args.append(f"{arg}={self.credentials.__dict__[arg]}")
@@ -332,10 +332,10 @@ LIMIT {max_number_of_outliers})
         logger.debug(
             f'Done collecting relations. Found a total of {len(unique_relations)} '
             f'unique relations in database {quoted_database}')
-        relations = list()
+        relations = []
         for relation in unique_relations:
             logger.debug(f'Building relation { quoted_database + "." + relation }...')
-            attributes = list()
+            attributes = []
 
             for attribute in relations_frame.loc[(
                     relations_frame['schema'] + '.' + relations_frame['relation']) == relation].itertuples():

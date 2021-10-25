@@ -32,8 +32,8 @@ class Relation:
                  database: str,
                  schema: str,
                  name: str,
-                 materialization: mz.Materialization,
-                 attributes: List[Attribute]):
+                 materialization: Optional[mz.Materialization],
+                 attributes: Optional[List[Attribute]]):
 
         self.database = database
         self.schema = schema
@@ -129,7 +129,7 @@ def lookup_single_relation(lookup: dict, relation_set: iter) -> Relation:
     """looks up a single relation by dict given the relation_set, returns None
     if not found.
 
-    ARGS:
+    Args:
         lookup(dict) a dict of database, schema, relation keys
         relation_set(iter) any iterable of relations
     """
@@ -145,11 +145,11 @@ def lookup_single_relation(lookup: dict, relation_set: iter) -> Relation:
     return found
 
 
-def lookup_relations(lookup: dict, relation_set: iter) -> Relation:
+def lookup_relations(lookup: dict, relation_set: iter) -> List[Relation]:
     """Finds all relations that match regex patterns in given the relation_set,
     returns None if not found.
 
-    ARGS:
+    Args:
         lookup(dict) a dict of database, schema, relation regex patterns
         relation_set(iter) any iterable of relations
     """
@@ -168,7 +168,7 @@ def single_full_pattern_match(rel: Relation,
     :class:`SpecifiedMatchPattern <snowshu.core.configuration_parser.SpecifiedMatchPattern>`.
 
     Args:
-        relation: The :class:`Relation <snowshu.core.models.relation.Relation>` to be tested.
+        rel: The :class:`Relation <snowshu.core.models.relation.Relation>` to be tested.
         pattern: Either a dict of database,schema,name(relation) or a
                     :class:`SpecifiedMatchPattern <snowshu.core.configuration_parser.SpecifiedMatchPattern>`.
 

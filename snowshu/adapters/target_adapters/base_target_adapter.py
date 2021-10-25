@@ -27,7 +27,7 @@ logger = Logger().logger
 class BaseTargetAdapter(BaseSQLAdapter):
     """All target adapters inherit from this one."""
     REQUIRED_CREDENTIALS = [USER, PASSWORD, HOST, PORT, DATABASE]
-    ALLOWED_CREDENTIALS = list()
+    ALLOWED_CREDENTIALS = []
     DOCKER_TARGET_PORT = DOCKER_TARGET_PORT
 
     def __init__(self, replica_metadata: dict):
